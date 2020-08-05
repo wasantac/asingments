@@ -28,12 +28,12 @@ public class SimplyLinkedList<E> implements List<E> {
     public boolean addFirst(E element) {
         Node<E> node = new Node<>(element);
         if (element == null) {
-            return false;
+            return false; //checks if the element is null
         } else if (isEmpty()) {
-            first = last = node;
+            first = last = node; //checks if the list is empty and adds the element as the first item
         } else {
             node.setNext(first);
-            first = node;
+            first = node; //check if there is items on the list and adds the element as the first item
         }
         size++;
         return true;
@@ -41,11 +41,11 @@ public class SimplyLinkedList<E> implements List<E> {
 
     private Node<E> getPrevious(Node<E> p) {
         if (p == first) {
-            return null;
+            return null; //checks if the node p is the first item
         }
         for (Node<E> q = this.first; q != null; q = q.getNext()) {
             if (q.getNext() == p) {
-                return q;
+                return q; //checks for the next item
             }
         }
         return null;
@@ -53,14 +53,14 @@ public class SimplyLinkedList<E> implements List<E> {
 
     @Override
     public boolean addLast(E element) {
-        Node<E> node = new Node<>(element);
+        Node<E> node = new Node<>(element); 
         if (element == null) {
-            return false;
+            return false; //checks if element is null
         } else if (isEmpty()) {
-            first = last = node;
+            first = last = node; //checks if there is no item on the list and adds the element
         } else {
             last.setNext(node);
-            last = node;
+            last = node; //check if there is items on the list and adds the element
         }
         size++;
         return true;
@@ -116,7 +116,7 @@ public class SimplyLinkedList<E> implements List<E> {
 
     @Override
     public int size() {
-        return size;
+        return size; //retirns the size of the list
     }
 
     @Override
@@ -226,26 +226,25 @@ public class SimplyLinkedList<E> implements List<E> {
     //Question 1A
     public boolean deleteMin(Comparator<E> f) {
         if (size == 0 || f == null) {
-            return false;
+            return false; //checks if there is a comparator or if there is no items on the list
         }
         Node<E> node = first;
         Node<E> min = first;
         while (node != null) {
             if (f.compare(min.getData(), node.getData()) > 0) {
-                min = node;
+                min = node; //sets the min node if there is smaller data
             }
             node = node.getNext();
         }
         if (min.getData() == first.getData()) {
-            removeFirst();
+            removeFirst(); //checks if the min node is the first node
         } else if (min.getData() == last.getData()) {
-
-            removeLast();
+            removeLast(); //checks if the min node is the last node
         } else {
             Node<E> prev = getPrevious(min);
             Node<E> next = min.getNext();
             prev.setNext(next);
-            min.setData(null);
+            min.setData(null); //other cases and deletes the node specified
         }
         return true;
     }
